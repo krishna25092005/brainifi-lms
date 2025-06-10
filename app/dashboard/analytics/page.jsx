@@ -66,13 +66,13 @@ export default function AnalyticsPage() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
       >
-        <h1 className="text-2xl font-bold text-gray-800 dark:text-gray-100 mb-2">Analytics Dashboard</h1>
+        <h1 className="mb-2 text-2xl font-bold text-gray-800 dark:text-gray-100">Analytics Dashboard</h1>
         <p className="text-gray-600 dark:text-gray-300">Track your learning progress and activities</p>
       </motion.div>
       
       {/* Stats Cards */}
       <motion.div 
-        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4"
+        className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.1 }}
@@ -80,7 +80,7 @@ export default function AnalyticsPage() {
         {statsCards.map((stat, index) => (
           <motion.div
             key={index}
-            className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-100 dark:border-gray-700"
+            className="p-6 bg-white border border-gray-100 shadow-sm dark:bg-gray-800 rounded-xl dark:border-gray-700"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 + index * 0.1 }}
@@ -101,10 +101,10 @@ export default function AnalyticsPage() {
       </motion.div>
       
       {/* Placeholder for charts - in a real app, you'd use a library like Chart.js or Recharts */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
         {/* Progress by Course */}
         <motion.div
-          className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-100 dark:border-gray-700"
+          className="p-6 bg-white border border-gray-100 shadow-sm dark:bg-gray-800 rounded-xl dark:border-gray-700"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4 }}
@@ -114,7 +114,7 @@ export default function AnalyticsPage() {
               <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-100">Course Progress</h3>
               <p className="text-sm text-gray-500 dark:text-gray-400">Completion percentage</p>
             </div>
-            <div className="bg-blue-50 dark:bg-blue-900/20 p-2 rounded-lg">
+            <div className="p-2 rounded-lg bg-blue-50 dark:bg-blue-900/20">
               <BarChart3 className="text-blue-600 dark:text-blue-400" size={20} />
             </div>
           </div>
@@ -126,9 +126,9 @@ export default function AnalyticsPage() {
                   <span className="font-medium text-gray-700 dark:text-gray-300">{course.name}</span>
                   <span className="text-gray-600 dark:text-gray-400">{course.progress}%</span>
                 </div>
-                <div className="w-full bg-gray-100 dark:bg-gray-700 rounded-full h-2">
+                <div className="w-full h-2 bg-gray-100 rounded-full dark:bg-gray-700">
                   <div 
-                    className="bg-gradient-to-r from-blue-500 to-blue-600 h-2 rounded-full"
+                    className="h-2 rounded-full bg-gradient-to-r from-blue-500 to-blue-600"
                     style={{ width: `${course.progress}%` }}
                   ></div>
                 </div>
@@ -139,7 +139,7 @@ export default function AnalyticsPage() {
         
         {/* Weekly Activity */}
         <motion.div
-          className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-100 dark:border-gray-700"
+          className="p-6 bg-white border border-gray-100 shadow-sm dark:bg-gray-800 rounded-xl dark:border-gray-700"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5 }}
@@ -149,7 +149,7 @@ export default function AnalyticsPage() {
               <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-100">Weekly Activity</h3>
               <p className="text-sm text-gray-500 dark:text-gray-400">Hours spent studying</p>
             </div>
-            <div className="bg-purple-50 dark:bg-purple-900/20 p-2 rounded-lg">
+            <div className="p-2 rounded-lg bg-purple-50 dark:bg-purple-900/20">
               <LineChart className="text-purple-600 dark:text-purple-400" size={20} />
             </div>
           </div>
@@ -169,13 +169,13 @@ export default function AnalyticsPage() {
       </div>
       
       <motion.div
-        className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-100 dark:border-gray-700"
+        className="p-6 bg-white border border-gray-100 shadow-sm dark:bg-gray-800 rounded-xl dark:border-gray-700"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.6 }}
       >
-        <div className="text-center py-10">
-          <h3 className="text-gray-600 dark:text-gray-300 mb-2">More analytics features coming soon!</h3>
+        <div className="py-10 text-center">
+          <h3 className="mb-2 text-gray-600 dark:text-gray-300">More analytics features coming soon!</h3>
           <p className="text-gray-500 dark:text-gray-400">We're working on adding more detailed insights about your learning journey.</p>
         </div>
       </motion.div>
