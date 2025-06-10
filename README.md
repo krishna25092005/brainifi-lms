@@ -3,10 +3,6 @@
 
 This project is an AI-powered Learning Management System (AI LMS) built using Next.js, Clerk for authentication, Inngest for function orchestration, Drizzle ORM for database interaction, and Google Gemini for AI-powered content generation. It allows users to create personalized study materials for various learning goals, such as exam preparation, job interviews, or general practice.
 
-## Demo
-- [Demo Video](https://drive.google.com/file/d/1CuD56rPsAf80mXNPXnVTLV0EYdY53B3z/view?t=2)
-
-
 ## Features
 
 * **AI-Driven Course Outline Generation:** Users input a topic, course type (e.g., Exam, Job Interview, Practice, Code Prep, Other), and difficulty level.  The AI generates a course outline containing a summary, chapters, chapter summaries, topic lists for each chapter, and relevant emojis, all formatted in JSON.
