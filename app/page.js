@@ -5,8 +5,9 @@ import { useUser } from "@clerk/nextjs";
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { useState } from "react";
-import { ArrowRight, ArrowUpRight, Brain, ChevronRight, Code, FileQuestion, Fingerprint, GraduationCap, MessageSquare, Star, User } from 'lucide-react';
+import { useState, useEffect } from "react";
+import { ArrowRight, ArrowUpRight, Brain, ChevronRight, Code, FileQuestion, Fingerprint, GraduationCap, MessageSquare, Moon, Star, Sun, User } from 'lucide-react';
+import { useTheme } from "next-themes";
 
 // Feature data
 const features = [
@@ -71,6 +72,18 @@ const testimonials = [
 export default function Home() {
   const { isSignedIn, user } = useUser();
   const [activeTestimonial, setActiveTestimonial] = useState(0);
+  const [mounted, setMounted] = useState(false);
+  const { theme, setTheme } = useTheme();
+  
+  // Handle theme toggle
+  const toggleTheme = () => {
+    setTheme(theme === 'dark' ? 'light' : 'dark');
+  };
+  
+  // Handle component mount to prevent hydration mismatch
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   // Animation variants
   const containerVariants = {
@@ -96,39 +109,50 @@ export default function Home() {
   return (
     <>
       {/* Navbar */}
-      <header className="fixed w-full top-0 z-50 backdrop-blur-lg bg-white/80 border-b border-gray-100">
+      <header className="fixed w-full top-0 z-50 backdrop-blur-lg bg-white/80 dark:bg-gray-900/80 border-b border-gray-100 dark:border-gray-800">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-4">
             <div className="flex items-center gap-2">
               <div className="h-10 w-10 rounded-lg bg-gradient-to-r from-blue-500 to-purple-600 flex items-center justify-center">
                 <GraduationCap className="text-white h-6 w-6" />
               </div>
-              <span className="font-bold text-2xl text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">
+              <span className="font-bold text-2xl text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400">
                 BrainiFi
               </span>
             </div>
             
             <nav className="hidden md:flex items-center gap-8">
-              <Link href="#features" className="text-gray-600 hover:text-blue-600 transition">
+              <Link href="#features" className="text-gray-600 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400 transition">
                 Features
               </Link>
-              <Link href="#testimonials" className="text-gray-600 hover:text-blue-600 transition">
+              <Link href="#testimonials" className="text-gray-600 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400 transition">
                 Testimonials
               </Link>
-              <Link href="#pricing" className="text-gray-600 hover:text-blue-600 transition">
+              <Link href="#pricing" className="text-gray-600 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400 transition">
                 Pricing
               </Link>
-              <Link href="#faq" className="text-gray-600 hover:text-blue-600 transition">
+              <Link href="#faq" className="text-gray-600 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400 transition">
                 FAQ
               </Link>
             </nav>
             
             <div className="flex items-center gap-4">
+              {/* Theme Toggle Button */}
+              {mounted && (
+                <button 
+                  onClick={toggleTheme}
+                  className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors"
+                  aria-label="Toggle theme"
+                >
+                  {theme === 'dark' ? <Sun className="text-gray-200" size={20} /> : <Moon size={20} />}
+                </button>
+              )}
+              
               {isSignedIn ? (
                 <div className="flex items-center gap-3">
                   <Link
                     href="/dashboard"
-                    className="hidden sm:flex items-center gap-1 px-4 py-2 text-sm font-medium text-blue-600 hover:text-blue-800 transition"
+                    className="hidden sm:flex items-center gap-1 px-4 py-2 text-sm font-medium text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 transition"
                   >
                     Dashboard
                     <ArrowRight className="h-4 w-4" />
@@ -138,7 +162,7 @@ export default function Home() {
               ) : (
                 <div>
                   <SignInButton mode="modal">
-                    <button className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-medium px-6 py-2 rounded-lg transition-all shadow-lg hover:shadow-blue-500/25">
+                    <button className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-medium px-4 sm:px-6 py-2 rounded-lg transition-all shadow-lg hover:shadow-blue-500/25">
                       Get Started
                     </button>
                   </SignInButton>
@@ -150,31 +174,31 @@ export default function Home() {
       </header>
 
       {/* Hero Section */}
-      <section className="pt-32 pb-20 bg-gradient-to-b from-white to-blue-50">
+      <section className="pt-32 pb-20 bg-gradient-to-b from-white to-blue-50 dark:from-gray-900 dark:to-gray-950">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col lg:flex-row items-center gap-12">
+          <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-12">
             <motion.div 
               className="lg:w-1/2" 
               initial={{ opacity: 0, x: -50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8 }}
             >
-              <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6 leading-tight">
-                Meet <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">BrainiFi</span>,<br />
+              <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6 leading-tight text-gray-900 dark:text-white">
+                Meet <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400">BrainiFi</span>,<br />
                 Your Smartest Learning Buddy
               </h1>
-              <p className="text-xl text-gray-600 mb-8 max-w-lg">
+              <p className="text-xl text-gray-600 dark:text-gray-300 mb-8 max-w-lg">
                 AI-powered personalized learning that adapts to your style. Get instant help with any subject, anytime.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
                 <Link href={isSignedIn ? "/dashboard" : "/sign-up"}>
-                  <button className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-medium px-8 py-3 rounded-lg transition-all shadow-lg hover:shadow-blue-500/25 flex items-center justify-center gap-2 w-full sm:w-auto">
+                  <button className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-medium px-6 sm:px-8 py-3 rounded-lg transition-all shadow-lg hover:shadow-blue-500/25 flex items-center justify-center gap-2 w-full sm:w-auto">
                     Start Learning Now
                     <ArrowRight className="h-5 w-5" />
                   </button>
                 </Link>
                 <Link href="#features">
-                  <button className="bg-white text-gray-800 font-medium px-8 py-3 rounded-lg border border-gray-200 hover:bg-gray-50 transition-all shadow-sm flex items-center justify-center gap-2 w-full sm:w-auto">
+                  <button className="bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-200 font-medium px-6 sm:px-8 py-3 rounded-lg border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 transition-all shadow-sm flex items-center justify-center gap-2 w-full sm:w-auto">
                     Explore Features
                     <ChevronRight className="h-5 w-5" />
                   </button>
@@ -190,7 +214,7 @@ export default function Home() {
             >
               <div className="relative">
                 <div className="absolute -inset-4 bg-gradient-to-r from-blue-500 to-purple-600 rounded-xl blur-lg opacity-20 animate-pulse"></div>
-                <div className="relative bg-white rounded-xl border border-gray-200 shadow-xl overflow-hidden">
+                <div className="relative bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 shadow-xl overflow-hidden">
                   <div className="bg-gradient-to-r from-blue-500 to-purple-600 py-2 px-4">
                     <div className="flex gap-1.5">
                       <div className="h-3 w-3 rounded-full bg-red-500"></div>
@@ -199,8 +223,8 @@ export default function Home() {
                     </div>
                   </div>
                   <div className="p-4 sm:p-6">
-                    <div className="bg-gray-100 rounded-lg p-4 mb-4">
-                      <p className="text-gray-800 font-medium">
+                    <div className="bg-gray-100 dark:bg-gray-700 rounded-lg p-4 mb-4">
+                      <p className="text-gray-800 dark:text-gray-100 font-medium">
                         How do I solve the quadratic equation x² + 5x + 6 = 0?
                       </p>
                     </div>
@@ -208,19 +232,19 @@ export default function Home() {
                       <div className="h-8 w-8 rounded-full bg-gradient-to-r from-blue-500 to-purple-600 flex items-center justify-center text-white font-bold text-sm">
                         B
                       </div>
-                      <div className="bg-blue-50 rounded-lg rounded-tl-none p-3 text-sm max-w-md">
-                        <p className="text-gray-800">To solve x² + 5x + 6 = 0, I'll use factoring:</p>
-                        <p className="mt-2 font-medium">Step 1: Find two numbers that multiply to give 6 and add up to 5.</p>
-                        <p className="mt-1">These numbers are 2 and 3 (2×3=6 and 2+3=5)</p>
-                        <p className="mt-2 font-medium">Step 2: Rewrite the equation as factored expression.</p>
-                        <p className="mt-1">x² + 5x + 6 = 0</p>
-                        <p className="mt-1">x² + 2x + 3x + 6 = 0</p>
-                        <p className="mt-1">x(x + 2) + 3(x + 2) = 0</p>
-                        <p className="mt-1">(x + 3)(x + 2) = 0</p>
-                        <p className="mt-2 font-medium">Step 3: Set each factor equal to zero and solve.</p>
-                        <p className="mt-1">x + 3 = 0 → x = -3</p>
-                        <p className="mt-1">x + 2 = 0 → x = -2</p>
-                        <p className="mt-2 text-blue-600 font-semibold">The solutions are x = -3 and x = -2</p>
+                      <div className="bg-blue-50 dark:bg-blue-900/30 rounded-lg rounded-tl-none p-3 text-sm max-w-md">
+                        <p className="text-gray-800 dark:text-gray-100">To solve x² + 5x + 6 = 0, I'll use factoring:</p>
+                        <p className="mt-2 font-medium text-gray-800 dark:text-gray-100">Step 1: Find two numbers that multiply to give 6 and add up to 5.</p>
+                        <p className="mt-1 text-gray-700 dark:text-gray-200">These numbers are 2 and 3 (2×3=6 and 2+3=5)</p>
+                        <p className="mt-2 font-medium text-gray-800 dark:text-gray-100">Step 2: Rewrite the equation as factored expression.</p>
+                        <p className="mt-1 text-gray-700 dark:text-gray-200">x² + 5x + 6 = 0</p>
+                        <p className="mt-1 text-gray-700 dark:text-gray-200">x² + 2x + 3x + 6 = 0</p>
+                        <p className="mt-1 text-gray-700 dark:text-gray-200">x(x + 2) + 3(x + 2) = 0</p>
+                        <p className="mt-1 text-gray-700 dark:text-gray-200">(x + 3)(x + 2) = 0</p>
+                        <p className="mt-2 font-medium text-gray-800 dark:text-gray-100">Step 3: Set each factor equal to zero and solve.</p>
+                        <p className="mt-1 text-gray-700 dark:text-gray-200">x + 3 = 0 → x = -3</p>
+                        <p className="mt-1 text-gray-700 dark:text-gray-200">x + 2 = 0 → x = -2</p>
+                        <p className="mt-2 text-blue-600 dark:text-blue-400 font-semibold">The solutions are x = -3 and x = -2</p>
                       </div>
                     </div>
                   </div>
@@ -232,7 +256,7 @@ export default function Home() {
       </section>
 
       {/* Features Section */}
-      <section id="features" className="py-20 bg-white">
+      <section id="features" className="py-20 bg-white dark:bg-gray-900">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <motion.h2
@@ -240,7 +264,7 @@ export default function Home() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
-              className="text-3xl font-bold text-gray-900 sm:text-4xl mb-4"
+              className="text-3xl font-bold text-gray-900 dark:text-white sm:text-4xl mb-4"
             >
               Supercharge Your Learning
             </motion.h2>
@@ -249,14 +273,14 @@ export default function Home() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="text-xl text-gray-500 max-w-2xl mx-auto"
+              className="text-xl text-gray-500 dark:text-gray-300 max-w-2xl mx-auto"
             >
               BrainiFi combines cutting-edge AI with proven learning methods to help you master any subject.
             </motion.p>
           </div>
 
           <motion.div 
-            className="grid md:grid-cols-2 gap-8 lg:gap-12"
+            className="grid md:grid-cols-2 gap-6 md:gap-8 lg:gap-12"
             variants={containerVariants}
             initial="hidden"
             whileInView="visible"
@@ -265,18 +289,18 @@ export default function Home() {
             {features.map((feature, index) => (
               <motion.div
                 key={feature.name}
-                className="bg-white rounded-xl border border-gray-100 shadow-lg hover:shadow-xl transition-all overflow-hidden group hover:-translate-y-1"
+                className="bg-white dark:bg-gray-800 rounded-xl border border-gray-100 dark:border-gray-700 shadow-lg hover:shadow-xl transition-all overflow-hidden group hover:-translate-y-1"
                 variants={itemVariants}
               >
                 <div className="p-6 sm:p-8">
                   <div className={`${feature.color} h-12 w-12 rounded-lg shadow-lg mb-5 flex items-center justify-center text-white group-hover:scale-110 transition-transform`}>
                     <feature.icon size={24} />
                   </div>
-                  <h3 className="text-xl font-bold text-gray-900 mb-3">{feature.name}</h3>
-                  <p className="text-gray-600 mb-4">{feature.description}</p>
+                  <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3">{feature.name}</h3>
+                  <p className="text-gray-600 dark:text-gray-300 mb-4">{feature.description}</p>
                   <Link 
                     href={isSignedIn ? "/dashboard" : "/sign-up"} 
-                    className="inline-flex items-center gap-1 text-blue-600 font-medium hover:text-blue-800 transition-colors"
+                    className="inline-flex items-center gap-1 text-blue-600 dark:text-blue-400 font-medium hover:text-blue-800 dark:hover:text-blue-300 transition-colors"
                   >
                     Try it out <ArrowUpRight size={16} />
                   </Link>
@@ -288,7 +312,7 @@ export default function Home() {
       </section>
 
       {/* Testimonials */}
-      <section id="testimonials" className="py-20 bg-gray-50">
+      <section id="testimonials" className="py-20 bg-gray-50 dark:bg-gray-800">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <motion.h2
@@ -296,7 +320,7 @@ export default function Home() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
-              className="text-3xl font-bold text-gray-900 sm:text-4xl mb-4"
+              className="text-3xl font-bold text-gray-900 dark:text-white sm:text-4xl mb-4"
             >
               Loved by Students & Teachers
             </motion.h2>
@@ -305,15 +329,15 @@ export default function Home() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="text-xl text-gray-500 max-w-2xl mx-auto"
+              className="text-xl text-gray-500 dark:text-gray-300 max-w-2xl mx-auto"
             >
               Hear what our users have to say about their experience with BrainiFi.
             </motion.p>
           </div>
 
-          <div className="max-w-4xl mx-auto">
+          <div className="max-w-4xl mx-auto px-4 sm:px-0">
             <motion.div 
-              className="bg-white rounded-2xl shadow-xl p-8 relative overflow-hidden"
+              className="bg-white dark:bg-gray-900 rounded-2xl shadow-xl p-6 sm:p-8 relative overflow-hidden"
               initial={{ opacity: 0, scale: 0.95 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
@@ -321,7 +345,7 @@ export default function Home() {
             >
               <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-blue-500 to-purple-600"></div>
               
-              <div className="flex items-center gap-4 mb-8">
+              <div className="flex flex-col sm:flex-row sm:items-center gap-4 mb-8">
                 <div className="h-16 w-16 rounded-full overflow-hidden">
                   <img 
                     src={testimonials[activeTestimonial].avatar} 
@@ -330,20 +354,20 @@ export default function Home() {
                   />
                 </div>
                 <div>
-                  <h3 className="font-bold text-lg">{testimonials[activeTestimonial].author}</h3>
-                  <p className="text-gray-600">{testimonials[activeTestimonial].role}</p>
+                  <h3 className="font-bold text-lg text-gray-900 dark:text-white">{testimonials[activeTestimonial].author}</h3>
+                  <p className="text-gray-600 dark:text-gray-300">{testimonials[activeTestimonial].role}</p>
                   <div className="flex gap-1 mt-1">
                     {[...Array(5)].map((_, i) => (
                       <Star 
                         key={i} 
-                        className={`h-4 w-4 ${i < testimonials[activeTestimonial].rating ? 'text-amber-400 fill-amber-400' : 'text-gray-300'}`}
+                        className={`h-4 w-4 ${i < testimonials[activeTestimonial].rating ? 'text-amber-400 fill-amber-400' : 'text-gray-300 dark:text-gray-600'}`}
                       />
                     ))}
                   </div>
                 </div>
               </div>
               
-              <p className="text-gray-700 text-lg italic mb-8">
+              <p className="text-gray-700 dark:text-gray-300 text-lg italic mb-8">
                 "{testimonials[activeTestimonial].content}"
               </p>
               
@@ -354,8 +378,8 @@ export default function Home() {
                     onClick={() => setActiveTestimonial(index)}
                     className={`h-2 rounded-full transition-all ${
                       activeTestimonial === index 
-                        ? 'w-8 bg-blue-600' 
-                        : 'w-2 bg-gray-300'
+                        ? 'w-8 bg-blue-600 dark:bg-blue-500' 
+                        : 'w-2 bg-gray-300 dark:bg-gray-600'
                     }`}
                     aria-label={`Testimonial ${index + 1}`}
                   />
@@ -375,7 +399,7 @@ export default function Home() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
-              className="text-3xl sm:text-4xl font-bold mb-6"
+              className="text-2xl sm:text-3xl md:text-4xl font-bold mb-6"
             >
               Ready to transform your learning experience?
             </motion.h2>
@@ -384,7 +408,7 @@ export default function Home() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="text-xl opacity-90 mb-8 max-w-lg mx-auto"
+              className="text-lg sm:text-xl opacity-90 mb-8 max-w-lg mx-auto px-4 sm:px-0"
             >
               Join thousands of students who are already studying smarter, not harder with BrainiFi.
             </motion.p>
@@ -395,7 +419,7 @@ export default function Home() {
               transition={{ duration: 0.6, delay: 0.4 }}
             >
               <Link href={isSignedIn ? "/dashboard" : "/sign-up"}>
-                <button className="bg-white text-blue-600 font-bold px-8 py-3 rounded-lg hover:bg-blue-50 transition-all shadow-lg hover:shadow-blue-700/25">
+                <button className="bg-white text-blue-600 font-bold px-6 sm:px-8 py-3 rounded-lg hover:bg-blue-50 transition-all shadow-lg hover:shadow-blue-700/25">
                   Get Started Free
                 </button>
               </Link>
@@ -418,7 +442,7 @@ export default function Home() {
                   BrainiFi
                 </span>
               </div>
-              <p className="text-gray-400 mb-6 max-w-xs">
+              <p className="text-gray-400 mb-6 max-w-sm">
                 The smartest learning buddy powered by Google Gemini AI. Helping students master any subject with personalized assistance.
               </p>
               <div className="flex gap-4">
@@ -440,7 +464,7 @@ export default function Home() {
               </div>
             </div>
             
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-8 md:w-2/3">
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-6 sm:gap-8 md:w-2/3">
               <div>
                 <h3 className="font-medium text-white mb-4">Product</h3>
                 <ul className="space-y-2">
@@ -461,7 +485,7 @@ export default function Home() {
                 </ul>
               </div>
               
-              <div>
+              <div className="col-span-2 sm:col-span-1 mt-6 sm:mt-0">
                 <h3 className="font-medium text-white mb-4">Company</h3>
                 <ul className="space-y-2">
                   <li><a href="#" className="hover:text-white transition-colors">About</a></li>
