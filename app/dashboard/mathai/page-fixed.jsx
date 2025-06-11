@@ -2,7 +2,7 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Brain, ChevronRight, Lightbulb, RotateCcw, Send, Star, Terminal, Sparkles } from 'lucide-react';
+import { Brain, ChevronRight, Lightbulb, RotateCcw, Send, Sparkles } from 'lucide-react';
 
 const mathSuggestions = [
   "Solve x² - 7x + 12 = 0",

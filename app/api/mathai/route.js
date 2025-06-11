@@ -17,10 +17,8 @@ export async function POST(req) {
     const genAI = new GoogleGenerativeAI(apiKey);
     
     // Use the Gemini model
-    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
-
-    // Configure the generation
-    const generationConfig = {
+    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });    // Configure the generation (directly used in the generateContent call below)
+    const genConfig = {
       temperature: 0.7,
       topP: 0.9,
       topK: 40,
@@ -37,10 +35,8 @@ export async function POST(req) {
     2. Show all your work step-by-step using clear mathematical notation
     3. Explain your reasoning at each step
     4. Provide the final answer clearly marked
-    `;
-
-    // Generate the response
-    const result = await model.generateContent(prompt);
+    `;    // Generate the response with our configuration
+    const result = await model.generateContent(prompt, genConfig);
     const response = await result.response;
     const text = response.text();
 

@@ -31,9 +31,9 @@ function Provider({ children }) {
             }
           });
           console.log("User check/creation response:", resp.data);
-        } catch (innerError) {
+        } catch (error) {
           // Silently handle the error without console.error to avoid red error messages
-          console.log("Note: User creation will be tried again on next login");
+          console.log("Note: User creation will be tried again on next login", error.message || "");
         }
       }, 1000);
     } catch (error) {

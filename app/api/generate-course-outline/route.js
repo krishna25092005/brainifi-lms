@@ -54,7 +54,7 @@ export async function POST(req) {
 
     console.log("Database insertion result:", dbResult);
 
-    const result = await inngest.send({
+    await inngest.send({
       name: "notes.generate",
       data: {
         course: dbResult[0], // Adjusting for the correct returned object structure
