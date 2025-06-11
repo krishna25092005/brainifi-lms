@@ -218,5 +218,27 @@ export const GenerateStudyTypeContent = inngest.createFunction(
         .where(eq(STUDY_TYPE_CONTENT_TABLE.id, recordId));
       return "Data Inserted";
     });
+    
+    // Update course status to Ready when all content is generated
+    try {
+      await step.run("Update Course Status", async () => {
+        // Make API call to update the course status
+        const response = await fetch("/api/update-course-status", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ courseId }),
+        });
+        
+        if (!response.ok) {
+          throw new Error("Failed to update course status");
+        }
+        
+        return "Course status updated to Ready";
+      });
+    } catch (error) {
+      console.error("Error updating course status:", error);
+    }
   }
 );

@@ -25,8 +25,19 @@ function Create() {
     console.log("Form Data:", formData);
     console.log("User Email:", user?.primaryEmailAddress?.emailAddress);
 
+    const [error, setError] = useState(null);
+
     const GenerateCourseOutline = async () => {
       try {
+        // Reset any previous errors
+        setError(null);
+        
+        // Validate input fields
+        if (!formData.studyType || !formData.topic) {
+          setError("Please fill in all required fields");
+          return;
+        }
+
         const courseId = uuidv4();
         setLoading(true);
         const payload = {
@@ -44,22 +55,40 @@ function Create() {
           payload
         );
 
-        console.log("API Response:", result.data.result.resp);
+        console.log("API Response:", result.data.result);
         setLoading(false);
-        router.replace('/dashboard')
+        router.replace('/dashboard');
       } catch (error) {
         console.error(
           "Error generating course outline:",
           error?.response?.data || error.message
         );
-        alert("Failed to generate course outline. Please check your input.");
+        setLoading(false);
+        
+        // Set error message for display
+        const errorMessage = error?.response?.data?.error || 
+                            "Failed to generate course outline. Please try again later.";
+        setError(errorMessage);
       }
-    };
+    }
 
   return (
     <div className='flex flex-col items-center h-screen p-5 md:px-24 lg:px-36'>
         <h2 className='text-4xl font-bold text-primary dark:text-blue-400'>Start Building Your Personal Study Material</h2>
         <p className='text-lg text-gray-500 dark:text-gray-400'>Fill all the details in order to generate study material for your next project</p>
+        
+        {/* Display error if exists */}
+        {error && (
+          <div className="w-full mt-4">
+            <Alert 
+              title="Course Generation Error" 
+              message={error}
+              type="error" 
+              onClose={() => setError(null)} 
+            />
+          </div>
+        )}
+        
         <div className='w-full mt-10'>
             {step==0? <SelectOption selectedStudyType={(value)=>handleUserInput("studyType",value)}/> : <TopicInput setTopic={(value)=>handleUserInput("topic", value)} setDifficultyLevel={(value)=>handleUserInput("difficultyLevel", value)}/>}
         </div>

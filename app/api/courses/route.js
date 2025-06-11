@@ -1,5 +1,5 @@
-import { db } from "/configs/db";
-import { STUDY_MATERIAL_TABLE } from "/configs/schema";
+import { db } from "../../../configs/db";
+import { STUDY_MATERIAL_TABLE } from "../../../configs/schema";
 import { desc, eq } from "drizzle-orm";
 import { NextResponse } from "next/server";
 

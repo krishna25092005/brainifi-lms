@@ -1,13 +1,20 @@
-import { inngest } from "/inngest/client";
-import { courseOutlineAIModel } from "/configs/AiModel";
-import { db } from "/configs/db";
-import { STUDY_MATERIAL_TABLE } from "/configs/schema";
+import { inngest } from "../../../inngest/client";
+import { courseOutlineAIModel } from "../../../configs/AiModel";
+import { db } from "../../../configs/db";
+import { STUDY_MATERIAL_TABLE } from "../../../configs/schema";
 import { NextResponse } from "next/server";
 
 export async function POST(req) {
   try {
     const { courseId, topic, courseType, difficultyLevel, createdBy } =
       await req.json();
+
+    if (!courseId || !topic || !courseType || !createdBy) {
+      return NextResponse.json(
+        { error: "Missing required fields" },
+        { status: 400 }
+      );
+    }
 
     console.log("Received data:", {
       courseId,
@@ -22,8 +29,17 @@ export async function POST(req) {
     const aiResp = await courseOutlineAIModel.sendMessage(PROMPT);
     console.log("AI response:", aiResp);
 
-    const aiResult = JSON.parse(aiResp.response.text());
-    console.log("Parsed AI result:", aiResult);
+    let aiResult;
+    try {
+      aiResult = JSON.parse(aiResp.response.text());
+      console.log("Parsed AI result:", aiResult);
+    } catch (parseError) {
+      console.error("Failed to parse AI response:", parseError);
+      return NextResponse.json(
+        { error: "Failed to parse AI response" },
+        { status: 500 }
+      );
+    }
 
     const dbResult = await db
       .insert(STUDY_MATERIAL_TABLE)

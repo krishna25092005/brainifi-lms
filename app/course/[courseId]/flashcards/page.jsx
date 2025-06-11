@@ -15,6 +15,7 @@ const StyledSwiper = styled.div`
   .swiper {
     width: 100%;
     height: 50vh;
+    position: relative;
   }
 
   .swiper-slide {
@@ -36,6 +37,42 @@ const StyledSwiper = styled.div`
   .swiper {
     margin-left: auto;
     margin-right: auto;
+  }
+  
+  .swiper-button-prev,
+  .swiper-button-next {
+    color: #3B82F6;
+    background: rgba(255, 255, 255, 0.8);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+    transition: all 0.3s ease;
+  }
+  
+  .swiper-button-prev:after,
+  .swiper-button-next:after {
+    font-size: 18px;
+    font-weight: bold;
+  }
+  
+  .swiper-button-prev:hover,
+  .swiper-button-next:hover {
+    background: #ffffff;
+    transform: scale(1.1);
+  }
+  
+  @media (prefers-color-scheme: dark) {
+    .swiper-button-prev,
+    .swiper-button-next {
+      background: rgba(30, 41, 59, 0.8);
+      color: #60a5fa;
+    }
+    
+    .swiper-button-prev:hover,
+    .swiper-button-next:hover {
+      background: rgba(30, 41, 59, 1);
+    }
   }
 `;
 
@@ -73,22 +110,34 @@ function Flashcards() {
           <Swiper
             slidesPerView={1}
             spaceBetween={30}
-            loop={true}
+            loop={false}
             pagination={{ clickable: true }}
-            navigation={true}
+            navigation={{
+              prevEl: '.swiper-button-prev',
+              nextEl: '.swiper-button-next',
+            }}
             modules={[Pagination, Navigation]}
             className="mySwiper"
           >
             {flashCards.content?.map((flashCard, index) => (
               <SwiperSlide key={index}>
                 <FlashcardItem
-                  isFlipped={flippedStates[index]}
+                  isFlipped={flippedStates[index] || false}
                   handleClick={() => handleClick(index)}
                   flashCard={flashCard}
                 />
               </SwiperSlide>
             ))}
+            {(!flashCards.content || flashCards.content?.length === 0) && (
+              <SwiperSlide>
+                <div className="p-7 bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 flex shadow-lg items-center justify-center rounded-lg h-[250px] w-[250px] md:h-[400px] md:w-[350px] font-medium">
+                  Loading flashcards...
+                </div>
+              </SwiperSlide>
+            )}
           </Swiper>
+          <div className="swiper-button-prev" style={{color: '#3B82F6'}}></div>
+          <div className="swiper-button-next" style={{color: '#3B82F6'}}></div>
         </StyledSwiper>
       </div>
     </div>
