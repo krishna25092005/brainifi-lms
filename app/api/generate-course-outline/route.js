@@ -54,16 +54,33 @@ export async function POST(req) {
 
     console.log("Database insertion result:", dbResult);
 
-    await inngest.send({
-      name: "notes.generate",
-      data: {
-        course: dbResult[0], // Adjusting for the correct returned object structure
-      },
-    });
+    try {
+      console.log("Attempting to send Inngest event with key:", process.env.NEXT_PUBLIC_INNGEST_EVENT_KEY ? "Available" : "Not available");
+      const eventResult = await inngest.send({
+        name: "notes.generate",
+        data: {
+          course: dbResult[0], // Adjusting for the correct returned object structure
+        }
+      });
+      console.log("Inngest event sent successfully:", eventResult);
+    } catch (inngestError) {
+      console.error("Failed to send Inngest event:", inngestError);
+      console.log("Inngest error details:", {
+        message: inngestError.message,
+        stack: inngestError.stack,
+        name: inngestError.name
+      });
+      // Continue execution even if Inngest fails - don't block the response
+    }
 
     return NextResponse.json({ result: dbResult[0] });
   } catch (error) {
     console.error("Error processing the request:", error);
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    console.log("Error details:", {
+      message: error.message,
+      stack: error.stack,
+      name: error.name
+    });
+    return NextResponse.json({ error: error.message, details: "Check server logs for more information" }, { status: 500 });
   }
 }

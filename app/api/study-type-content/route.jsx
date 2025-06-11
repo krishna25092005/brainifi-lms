@@ -13,6 +13,8 @@ export async function POST(req) {
         { status: 400 }
       );
     }
+    
+    console.log("Study type content generation request:", { chapter, courseId, type });
 
     const PROMPT =
       type === "Flashcard"
@@ -140,21 +142,33 @@ Give me in .md format
     console.log("Inserted Content ID:", result);
 
     // Trigger the external task
-    await inngest.send({
-      name: "studyType.content",
-      data: {
-        studyType: type,
-        prompt: PROMPT,
-        courseId: courseId,
-        recordId: result[0]?.id,
-      },
-    });
+    try {
+      console.log("Sending Inngest event for study type content generation");
+      const eventResult = await inngest.send({
+        name: "studyType.content",
+        data: {
+          studyType: type,
+          prompt: PROMPT,
+          courseId: courseId,
+          recordId: result[0]?.id,
+        },
+      });
+      console.log("Inngest event sent successfully for study type:", eventResult);
+    } catch (inngestError) {
+      console.error("Failed to send Inngest event for study type:", inngestError);
+      // Continue execution to avoid blocking the response
+    }
 
     return NextResponse.json({ id: result[0]?.id });
   } catch (error) {
-    console.error("Error in POST /api/study-type-content:", error.message);
+    console.error("Error in POST /api/study-type-content:", error);
+    console.log("Error details:", {
+      message: error.message,
+      stack: error.stack,
+      name: error.name
+    });
     return NextResponse.json(
-      { error: "Failed to generate study material. Please try again." },
+      { error: "Failed to generate study material. Please try again.", details: error.message },
       { status: 500 }
     );
   }
