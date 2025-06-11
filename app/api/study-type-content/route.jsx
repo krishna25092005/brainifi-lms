@@ -1,6 +1,12 @@
 import { STUDY_TYPE_CONTENT_TABLE } from "/configs/schema";
 import { db } from "/configs/db";
 import { inngest } from "/inngest/client";
+import {
+  GenerateQaAiModel,
+  GenerateQuizAiModel,
+  GenerateStudyTypeContentAiModel
+} from "/configs/AiModel";
+import { eq } from "drizzle-orm";
 import { NextResponse } from "next/server";
 
 export async function POST(req) {
@@ -140,22 +146,84 @@ Give me in .md format
       .returning({ id: STUDY_TYPE_CONTENT_TABLE.id });
 
     console.log("Inserted Content ID:", result);
-
-    // Trigger the external task
+    
+    // Start direct content generation in background
     try {
-      console.log("Sending Inngest event for study type content generation");
-      const eventResult = await inngest.send({
-        name: "studyType.content",
-        data: {
-          studyType: type,
-          prompt: PROMPT,
-          courseId: courseId,
-          recordId: result[0]?.id,
-        },
-      });
-      console.log("Inngest event sent successfully for study type:", eventResult);
-    } catch (inngestError) {
-      console.error("Failed to send Inngest event for study type:", inngestError);
+      console.log("Starting direct content generation for", type);
+      const recordId = result[0]?.id;
+      
+      // Create async process that runs in the background
+      (async () => {
+        try {
+          let content;
+          let aiModel;
+          
+          // Select the appropriate AI model based on study type
+          if (type === "Flashcard") {
+            aiModel = GenerateStudyTypeContentAiModel;
+          } else if (type === "Quiz") {
+            aiModel = GenerateQuizAiModel;
+          } else if (type === "Q&A") {
+            aiModel = GenerateQaAiModel;
+          }
+          
+          if (!aiModel) {
+            throw new Error("Unsupported study type: " + type);
+          }
+          
+          // Generate the content
+          console.log(`Generating ${type} content with prompt:`, PROMPT);
+          const response = await aiModel.sendMessage(PROMPT);
+          
+          try {
+            content = JSON.parse(response.response.text());
+            console.log(`Successfully generated ${type} content`);
+            
+            // Update database with the generated content
+            await db
+              .update(STUDY_TYPE_CONTENT_TABLE)
+              .set({
+                content: content,
+                status: "Ready",
+              })
+              .where(eq(STUDY_TYPE_CONTENT_TABLE.id, recordId))
+              .returning();
+              
+            console.log(`${type} content updated in database with Ready status`);
+            
+          } catch (parseError) {
+            console.error(`Failed to parse ${type} content:`, parseError);
+            
+            // Mark as failed in database
+            await db
+              .update(STUDY_TYPE_CONTENT_TABLE)
+              .set({
+                status: "Failed",
+                error: parseError.message,
+              })
+              .where(eq(STUDY_TYPE_CONTENT_TABLE.id, recordId));
+          }
+        } catch (genError) {
+          console.error("Error in background content generation:", genError);
+        }
+      })();
+      
+      // Try to send Inngest event as a backup, but don't rely on it
+      try {
+        await inngest.send({
+          name: "studyType.content",
+          data: {
+            studyType: type,
+            prompt: PROMPT,
+            courseId: courseId,
+            recordId: result[0]?.id,
+          },
+        });
+      } catch (e) {
+        console.log("Inngest backup sending failed, but direct generation is working");
+      }
+    } catch (startError) {
+      console.error("Failed to start direct content generation:", startError);
       // Continue execution to avoid blocking the response
     }
 
