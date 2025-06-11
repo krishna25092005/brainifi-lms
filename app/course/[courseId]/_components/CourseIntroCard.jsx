@@ -2,9 +2,9 @@ import React from "react";
 
 function CourseIntroCard({ course }) {
   return (
-    <div className="flex gap-6 items-center p-6 border dark:border-gray-700 shadow-md rounded-lg bg-gray-100 dark:bg-gray-800 w-full mx-auto">
+    <div className="flex flex-col sm:flex-row gap-6 items-center p-6 border dark:border-gray-700 shadow-md rounded-lg bg-gray-100 dark:bg-gray-800 w-full mx-auto">
 
-      <div className="w-[120px] flex flex-col justify-center items-center">
+      <div className="w-full sm:w-[120px] flex flex-col justify-center items-center">
         <img
           src="/knowledge.png"
           alt="knowledge"
@@ -17,7 +17,7 @@ function CourseIntroCard({ course }) {
         </h2>
       </div>
 
-      <div className="flex flex-col justify-between">
+      <div className="flex flex-col justify-between w-full text-center sm:text-left">
         <h2 className="font-bold text-xl text-gray-800 dark:text-gray-100">
           {course.courseLayout.courseTitle}
         </h2>

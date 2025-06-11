@@ -39,8 +39,8 @@ function Course() {
   }
 
   return (
-    <div className="h-screen">
-      <div>
+    <div className="min-h-screen pb-8">
+      <div className="mx-auto px-4 sm:px-6 max-w-7xl">
         <CourseIntroCard course={courseData} />
         <StudyMaterialSection courseId={courseId} course={courseData}/>
         <ChapterList course={courseData} />

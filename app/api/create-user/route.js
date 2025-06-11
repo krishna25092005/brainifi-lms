@@ -7,14 +7,14 @@ export async function POST(req){
     try {
         const result = await inngest.send({
             name: 'user.create',
-            data: [
-                {
+            data: {
+                user: {
                     fullName: user.fullName,
                     primaryEmailAddress: { 
                         emailAddress: user.email 
                     }
                 }
-            ]
+            }
         });
         return NextResponse.json({ success: true, result });
     } catch (error) {

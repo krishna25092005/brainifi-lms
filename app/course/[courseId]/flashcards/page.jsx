@@ -26,6 +26,12 @@ const StyledSwiper = styled.div`
     justify-content: center;
     align-items: center;
   }
+  
+  @media (prefers-color-scheme: dark) {
+    .swiper-slide {
+      background: #1e2a3b;
+    }
+  }
 
   .swiper-slide img {
     display: block;
@@ -102,10 +108,10 @@ function Flashcards() {
   };
 
   return (
-    <div className="h-screen">
+    <div className="min-h-screen p-3 sm:p-5 overflow-y-auto pb-20">
       <h2 className="font-bold text-2xl text-gray-800 dark:text-gray-100">Flashcards</h2>
       <p className="text-gray-700 dark:text-gray-300">Help you to remember your concepts</p>
-      <div className="mt-28">
+      <div className="mt-14 sm:mt-28">
         <StyledSwiper>
           <Swiper
             slidesPerView={1}

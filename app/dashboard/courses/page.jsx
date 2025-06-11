@@ -138,22 +138,21 @@ export default function CoursesPage() {
       </div>
       
       {/* Search and Filter Section */}
-      <div className="flex flex-col md:flex-row gap-4">
-        <div className="relative flex-1">
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={18} />
+      <div className="flex flex-col md:flex-row gap-4">        <div className="relative flex-1">
+          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 dark:text-gray-300" size={18} />
           <input 
             type="text" 
             placeholder="Search courses..." 
-            className="w-full pl-10 pr-4 py-2 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="w-full pl-10 pr-4 py-2 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent placeholder-gray-500 dark:placeholder-gray-300"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />
         </div>
         <div className="relative">
-          <div className="flex items-center gap-2 px-4 py-2 rounded-xl border border-gray-200 cursor-pointer bg-white">
-            <Filter size={16} className="text-gray-500" />
+          <div className="flex items-center gap-2 px-4 py-2 rounded-xl border border-gray-200 dark:border-gray-700 cursor-pointer bg-white dark:bg-gray-800">
+            <Filter size={16} className="text-gray-500 dark:text-gray-300" />
             <select 
-              className="appearance-none bg-transparent pr-8 focus:outline-none"
+              className="appearance-none bg-transparent pr-8 focus:outline-none text-gray-800 dark:text-gray-200"
               value={filterCategory}
               onChange={(e) => setFilterCategory(e.target.value)}
             >

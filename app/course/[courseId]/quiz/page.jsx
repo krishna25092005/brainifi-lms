@@ -231,20 +231,20 @@ function GamifiedQuiz() {
   }
 
   return (
-    <div className="h-screen p-5">
-      <h1 className="text-3xl font-bold mb-5 text-center text-gray-800 dark:text-gray-100">{quizTitle}</h1>
+    <div className="min-h-screen p-3 sm:p-5 overflow-y-auto pb-20">
+      <h1 className="text-2xl sm:text-3xl font-bold mb-5 text-center text-gray-800 dark:text-gray-100">{quizTitle}</h1>
 
       <div className="mb-5">
-        <div className="flex justify-between items-center">
-          <p className="text-lg font-medium text-gray-800 dark:text-gray-200">
+        <div className="flex flex-col sm:flex-row justify-between items-center gap-2 sm:gap-0">
+          <p className="text-base sm:text-lg font-medium text-gray-800 dark:text-gray-200">
             Question {stepCount + 1} of {questions.length}
           </p>
-          <p className="text-lg font-medium text-red-500 dark:text-red-400">Time: {timer}s</p>
-          <p className="text-lg font-medium text-green-500 dark:text-green-400">Score: {score}</p>
+          <p className="text-base sm:text-lg font-medium text-red-500 dark:text-red-400">Time: {timer}s</p>
+          <p className="text-base sm:text-lg font-medium text-green-500 dark:text-green-400">Score: {score}</p>
         </div>
 
-        <div className="mt-16 mb-10">
-          <p className="text-gray-800 dark:text-gray-100 text-2xl text-center">
+        <div className="mt-8 sm:mt-16 mb-6 sm:mb-10">
+          <p className="text-gray-800 dark:text-gray-100 text-xl sm:text-2xl text-center">
             {questions[stepCount].question}
           </p>
         </div>

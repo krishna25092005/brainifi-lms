@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState } from 'react'
 
 function SelectOption({selectedStudyType}) {
@@ -24,7 +26,7 @@ function SelectOption({selectedStudyType}) {
         },
     ]
 
-    const [selectedOption, setSelectedOption] = useState();
+    const [selectedOption, setSelectedOption] = useState("");
   return (
     <div>
       <h2 className="text-center mb-2 text-lg text-gray-800 dark:text-gray-100">
@@ -34,13 +36,22 @@ function SelectOption({selectedStudyType}) {
         {Options.map((option, index) => (
           <div
             key={index}
-            onClick={() => {setSelectedOption(option.name);selectedStudyType(option.name)}}
-            className={`p-4 flex flex-col items-center justify-center border-2 border-gray-300 dark:border-gray-600 rounded-xl hover:border-primary dark:hover:border-blue-400 cursor-pointer bg-white dark:bg-gray-800 ${
-              option?.name == selectedOption && "border-primary dark:border-blue-400"
-            }`}
+            onClick={() => {setSelectedOption(option.name); selectedStudyType(option.name);}}
+            className={`p-4 flex flex-col items-center justify-center border-2 ${
+              option.name === selectedOption 
+                ? "border-blue-500 dark:border-blue-400 shadow-md" 
+                : "border-gray-300 dark:border-gray-600"
+            } rounded-xl hover:border-blue-500 dark:hover:border-blue-400 cursor-pointer bg-white dark:bg-gray-800 transition-all`}
+            data-suppress-hydration-warning
           >
-            <img src={option.icon} alt={option.name} width={50} height={50} />
-            <h2 className="text-sm mt-2 text-gray-800 dark:text-gray-100">{option.name}</h2>
+            <img 
+              src={option.icon} 
+              alt={option.name} 
+              width={50} 
+              height={50}
+              className="mb-2" 
+            />
+            <h2 className="text-sm font-medium text-gray-800 dark:text-gray-100">{option.name}</h2>
           </div>
         ))}
       </div>

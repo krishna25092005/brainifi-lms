@@ -4,6 +4,7 @@ import { useUser } from "@clerk/nextjs";
 import axios from "axios";
 import React, { useEffect } from "react";
 import { ThemeProvider } from "next-themes";
+import HydrationFix from "../components/HydrationFix";
 
 function Provider({ children }) {
   const { user } = useUser();
@@ -52,6 +53,8 @@ function Provider({ children }) {
       disableTransitionOnChange={true}
       suppressHydrationWarning
     >
+      {/* Add HydrationFix component to clean up fdprocessedid attributes */}
+      <HydrationFix />
       {children}
     </ThemeProvider>
   );

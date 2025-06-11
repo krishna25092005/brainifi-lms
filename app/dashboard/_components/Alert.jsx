@@ -1,30 +1,48 @@
-import React from 'react'
+"use client";
 
-function Alert() {
-  return (
-    <div>
-      <div className="alert alert-success">
-        <svg
-          width="48"
-          height="48"
-          viewBox="0 0 48 48"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            fillRule="evenodd"
-            clipRule="evenodd"
-            d="M24 4C12.96 4 4 12.96 4 24C4 35.04 12.96 44 24 44C35.04 44 44 35.04 44 24C44 12.96 35.04 4 24 4ZM18.58 32.58L11.4 25.4C10.62 24.62 10.62 23.36 11.4 22.58C12.18 21.8 13.44 21.8 14.22 22.58L20 28.34L33.76 14.58C34.54 13.8 35.8 13.8 36.58 14.58C37.36 15.36 37.36 16.62 36.58 17.4L21.4 32.58C20.64 33.36 19.36 33.36 18.58 32.58Z"
-            fill="#00BA34"
-          />
-        </svg>
-        <div className="flex flex-col">
-          <span>Title</span>
-          <span className="text-content2">Long sample text</span>
-        </div>
-      </div>
-    </div>
-  );
+import React, { useState } from 'react';
+import { AlertTriangle, CheckCircle, Info, X, XCircle } from 'lucide-react';
+
+function Alert({ title, message, type = 'info', onClose, autoClose = true }) {
+  const [isVisible, setIsVisible] = useState(true);
+
+  // Auto close the alert after 5 seconds if autoClose is true
+  React.useEffect(() => {
+    if (autoClose) {
+      const timer = setTimeout(() => {
+        setIsVisible(false);
+        if (onClose) onClose();
+      }, 5000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [autoClose, onClose]);
+
+  // If the alert is not visible, don't render it
+  if (!isVisible) return null;
+
+  // Define styles based on the alert type
+  const alertStyles = {
+    success: {
+      bg: 'bg-green-50 border-green-200',
+      text: 'text-green-600',
+      icon: <CheckCircle className="text-green-500" size={24} />
+    },
+    error: {
+      bg: 'bg-red-50 border-red-200',
+      text: 'text-red-600',
+      icon: <XCircle className="text-red-500" size={24} />
+    },
+    warning: {
+      bg: 'bg-amber-50 border-amber-200',
+      text: 'text-amber-600',
+      icon: <AlertTriangle className="text-amber-500" size={24} />
+    },
+    info: {
+      bg: 'bg-blue-50 border-blue-200',
+      text: 'text-blue-600',
+      icon: <Info className="text-blue-500" size={24} />
+    }
+  };
 }
-
-export default Alert
+export default Alert;

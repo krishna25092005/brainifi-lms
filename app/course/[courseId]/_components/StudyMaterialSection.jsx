@@ -73,7 +73,7 @@ function StudyMaterialSection({ courseId, course }) {
   return (
     <div className="mt-5">
       <h2 className="font-medium text-xl text-gray-800 dark:text-gray-100">Study Material</h2>
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-5 mt-3">
+      <div className="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-4 gap-3 sm:gap-5 mt-3">
         {MaterialList.map((item, index) => (
             <MaterialCardItem
               key={index}

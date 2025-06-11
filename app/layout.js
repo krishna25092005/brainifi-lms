@@ -21,10 +21,12 @@ export default function RootLayout({ children }) {
     <ClerkProvider>
       <html lang="en" className="light" suppressHydrationWarning>
         <head>
+          <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
           <meta name="color-scheme" content="light dark" />
+          <script src="/scripts/suppress-hydration-warnings.js" async></script>
         </head>
         <body
-          className={`${outfit.className} bg-white dark:bg-gray-900`}
+          className={`${outfit.className} bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-200`}
           suppressHydrationWarning
         >
           <Provider>

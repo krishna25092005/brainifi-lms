@@ -110,7 +110,7 @@ export default function MathAiPage() {
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="p-6 mb-6 bg-white border border-purple-100 shadow-md dark:bg-gray-800 dark:border-gray-700 rounded-xl"
+        className="p-6 mb-6 bg-white dark:bg-gray-800 border border-purple-100 dark:border-gray-700 shadow-md rounded-xl"
       >
         <div className="flex items-center gap-4">
           <div className="flex items-center justify-center text-white shadow-lg h-14 w-14 rounded-xl bg-gradient-to-br from-blue-500 to-purple-600 shadow-purple-200 dark:shadow-purple-900/20">
@@ -122,7 +122,7 @@ export default function MathAiPage() {
           </div>
           <button 
             onClick={clearChat}
-            className="flex items-center gap-1 px-3 py-2 ml-auto text-sm text-gray-700 transition-colors bg-gray-100 rounded-lg dark:text-gray-200 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600"
+            className="flex items-center gap-1 px-3 py-2 ml-auto text-sm text-gray-700 dark:text-gray-200 transition-colors bg-gray-100 dark:bg-gray-700 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600"
           >
             <RotateCcw size={14} /> Clear Chat
           </button>
@@ -156,10 +156,10 @@ export default function MathAiPage() {
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.7 + idx * 0.1 }}
                     onClick={() => handleSuggestionClick(suggestion)}
-                    className="flex items-center p-3 text-left transition-colors bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-700 dark:border-gray-600 hover:bg-blue-50 dark:hover:bg-gray-600 group"
+                    className="flex items-center p-3 text-left transition-colors bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg shadow-sm hover:bg-blue-50 dark:hover:bg-gray-600 group"
                   >
                     <span className="text-gray-700 dark:text-gray-200">{suggestion}</span>
-                    <ChevronRight size={16} className="ml-auto text-gray-400 transition-colors dark:text-gray-300 group-hover:text-blue-500" />
+                    <ChevronRight size={16} className="ml-auto text-gray-400 dark:text-gray-300 transition-colors group-hover:text-blue-500" />
                   </motion.button>
                 ))}
               </div>
@@ -214,10 +214,10 @@ export default function MathAiPage() {
               <div className="flex items-center justify-center flex-shrink-0 w-8 h-8 rounded-lg bg-gradient-to-br from-blue-500 to-purple-600">
                 <Brain size={16} className="text-white" />
               </div>
-              <div className="p-4 bg-white border border-gray-200 rounded-bl-none shadow-sm dark:bg-gray-700 dark:border-gray-600 rounded-2xl">
+              <div className="p-4 bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-bl-none shadow-sm rounded-2xl">
                 <div className="flex space-x-2">
-                  <div className="w-2 h-2 bg-blue-400 rounded-full dark:bg-blue-300 animate-bounce" style={{ animationDelay: '0ms' }}></div>
-                  <div className="w-2 h-2 bg-blue-500 rounded-full dark:bg-blue-400 animate-bounce" style={{ animationDelay: '150ms' }}></div>
+                  <div className="w-2 h-2 bg-blue-400 dark:bg-blue-300 rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></div>
+                  <div className="w-2 h-2 bg-blue-500 dark:bg-blue-400 rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></div>
                   <div className="w-2 h-2 bg-blue-600 rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></div>
                 </div>
               </div>
@@ -234,14 +234,14 @@ export default function MathAiPage() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.3 }}
-        className="flex gap-3 p-2 bg-white border border-purple-100 shadow-lg dark:bg-gray-800 dark:border-gray-700 rounded-xl"
+        className="flex gap-3 p-2 bg-white dark:bg-gray-800 border border-purple-100 dark:border-gray-700 shadow-lg rounded-xl"
       >
         <input
           type="text"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Ask any math question... (e.g., 'Solve x² + 7x + 12 = 0')"
-          className="flex-1 p-4 text-gray-800 placeholder-gray-500 border border-gray-200 rounded-lg dark:border-gray-700 bg-gray-50 dark:bg-gray-700 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent dark:placeholder-gray-300"
+          className="flex-1 p-4 border border-gray-200 dark:border-gray-700 rounded-lg bg-gray-50 dark:bg-gray-700 text-gray-800 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent placeholder-gray-500 dark:placeholder-gray-300"
           disabled={isLoading}
         />
         <button 

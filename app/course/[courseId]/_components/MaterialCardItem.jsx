@@ -80,12 +80,12 @@ function MaterialCardItem({ item, studyTypeContent, course, refreshData }) {
   return (
     <Link href={`/course/${course.courseId}${item.path}`}>
       <div
-        className={`border dark:border-gray-700 shadow-md rounded-lg bg-gray-100 dark:bg-gray-800 p-5 h-full flex flex-col items-center justify-between ${
+        className={`border dark:border-gray-700 shadow-md rounded-lg bg-gray-100 dark:bg-gray-800 p-3 sm:p-5 h-full flex flex-col items-center justify-between gap-2 ${
           !isContentGenerated ? "grayscale" : ""
         }`}
       >
         <h2
-          className={`p-1 px-2 rounded-full text-[10px] mb-2 ${
+          className={`p-1 px-2 rounded-full text-[10px] mb-1 ${
             isContentGenerated
               ? "bg-green-500 text-white"
               : "bg-gray-500 text-white"
@@ -93,19 +93,19 @@ function MaterialCardItem({ item, studyTypeContent, course, refreshData }) {
         >
           {isContentGenerated ? "Ready" : "Generate"}
         </h2>
-        <img src={item.icon} alt={item.name} width={50} height={50} />
-        <h2 className="font-medium mt-3 text-gray-800 dark:text-gray-100">{item.name}</h2>
-        <h2 className="text-gray-500 dark:text-gray-300 text-sm text-center">{item.desc}</h2>
+        <img src={item.icon} alt={item.name} width={40} height={40} className="sm:w-[50px] sm:h-[50px]" />
+        <h2 className="font-medium text-sm sm:text-base text-gray-800 dark:text-gray-100 text-center">{item.name}</h2>
+        <h2 className="text-gray-500 dark:text-gray-300 text-xs text-center">{item.desc}</h2>
         {!isContentGenerated ? (
           <button
-            className="btn btn-block btn-outline-primary mt-3 hover:cursor-pointer"
+            className="btn btn-block btn-outline-primary mt-auto text-xs sm:text-sm hover:cursor-pointer w-full px-1 sm:px-2 py-1.5"
             onClick={GenerateContent}
             disabled={loading} // Disable button while loading
           >
-            {loading ? <Loader className="animate-spin" /> : "Generate"}
+            {loading ? <Loader className="animate-spin w-4 h-4 mx-auto" /> : "Generate"}
           </button>
         ) : (
-          <button className="btn btn-block btn-outline-primary mt-3 hover:cursor-pointer">
+          <button className="btn btn-block btn-outline-primary mt-auto text-xs sm:text-sm hover:cursor-pointer w-full px-1 sm:px-2 py-1.5">
             View
           </button>
         )}

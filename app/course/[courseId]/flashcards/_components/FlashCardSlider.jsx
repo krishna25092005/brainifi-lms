@@ -42,25 +42,50 @@ export default function App() {
   };
   return (
     <StyledSwiper>
-      
-      <Swiper
-        slidesPerView={1}
-        spaceBetween={30}
-        loop={true}
-        pagination={{ clickable: true }}
-        navigation={true}
+      <div className="relative">
+        <Swiper
+          slidesPerView={1}
+          spaceBetween={30}
+          loop={false}
+          pagination={{ clickable: true }}
+          navigation={{
+            prevEl: '.swiper-button-prev',
+            nextEl: '.swiper-button-next',
+          }}
+          data-suppress-hydration-warning
         modules={[Pagination, Navigation]}
         className="mySwiper"
       >
-        
         <SwiperSlide>
           <FlashCardItem isFlipped={isFlipped} handleClick={handleClick} />
         </SwiperSlide>
-        <SwiperSlide>Slide 2</SwiperSlide> <SwiperSlide>Slide 3</SwiperSlide>
-        <SwiperSlide>Slide 4</SwiperSlide> <SwiperSlide>Slide 5</SwiperSlide>
-        <SwiperSlide>Slide 6</SwiperSlide> <SwiperSlide>Slide 7</SwiperSlide>
-        <SwiperSlide>Slide 8</SwiperSlide> <SwiperSlide>Slide 9</SwiperSlide>
+        <SwiperSlide>
+          <FlashCardItem 
+            isFlipped={isFlipped} 
+            handleClick={handleClick}
+            flashCard={{front: "Example Question 2", back: "Example Answer 2"}} 
+          />
+        </SwiperSlide>
+        <SwiperSlide>
+          <FlashCardItem 
+            isFlipped={isFlipped} 
+            handleClick={handleClick}
+            flashCard={{front: "Example Question 3", back: "Example Answer 3"}} 
+          />
+        </SwiperSlide>
+        <SwiperSlide>
+          <FlashCardItem 
+            isFlipped={isFlipped} 
+            handleClick={handleClick}
+            flashCard={{front: "Example Question 4", back: "Example Answer 4"}} 
+          />
+        </SwiperSlide>
       </Swiper>
+      
+      {/* Custom navigation buttons */}
+      <div className="swiper-button-prev"></div>
+      <div className="swiper-button-next"></div>
+    </div>
     </StyledSwiper>
   );
 }

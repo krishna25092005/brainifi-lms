@@ -5,9 +5,10 @@ import TopicInput from './_components/TopicInput';
 import axios from 'axios';
 import { v4 as uuidv4 } from 'uuid';
 import { useUser } from '@clerk/nextjs';
-import { Loader } from 'lucide-react';
+import { Loader, ArrowLeft, ArrowRight } from 'lucide-react';
 import { useRouter } from 'next/navigation';
-import Alert from '../dashboard/_components/Alert';
+import Alert from '../../components/ui/Alert';
+import Button from '../../components/ui/Button';
 
 function Create() {
     const [step, setStep] = useState(0);
@@ -93,9 +94,40 @@ function Create() {
             {step==0? <SelectOption selectedStudyType={(value)=>handleUserInput("studyType",value)}/> : <TopicInput setTopic={(value)=>handleUserInput("topic", value)} setDifficultyLevel={(value)=>handleUserInput("difficultyLevel", value)}/>}
         </div>
         <div className="flex justify-between w-full mt-32">
-        {step!=0? <button className="btn btn-primary" onClick={()=>setStep(step-1)}>Previous</button>:<span className="text-transparent">-</span>}
-        {step==0? <button onClick={()=>setStep(step+1)} className="btn btn-outline-primary">Next</button> : <button className="btn btn-outline-primary" onClick={GenerateCourseOutline} disabled={loading}>{loading?<Loader className='animate-spin'/>:"Generate"}</button>}
-      </div>
+          {step !== 0 ? (
+            <Button 
+              variant="primary" 
+              onClick={() => setStep(step-1)}
+              icon={<ArrowLeft size={16} />}
+              data-suppress-hydration-warning
+            >
+              Previous
+            </Button>
+          ) : (
+            <span className="text-transparent">-</span>
+          )}
+          
+          {step === 0 ? (
+            <Button 
+              variant="outline" 
+              onClick={() => setStep(step+1)}
+              icon={<ArrowRight size={16} />}
+              data-suppress-hydration-warning
+            >
+              Next
+            </Button>
+          ) : (
+            <Button 
+              variant="outline" 
+              onClick={GenerateCourseOutline} 
+              loading={loading}
+              disabled={loading}
+              data-suppress-hydration-warning
+            >
+              Generate
+            </Button>
+          )}
+        </div>
     </div>
   )
 }

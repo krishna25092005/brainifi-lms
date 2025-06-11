@@ -53,18 +53,18 @@ function ViewQA() {
   if (error) return <div className="text-center text-red-500">{error}</div>;
 
   return (
-    <div className="h-screen p-5">
+    <div className="min-h-screen p-3 sm:p-5 overflow-y-auto pb-20">
       {/* Navigation */}
-      <div className="flex gap-5 items-center mb-5">
+      <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-5 mb-5">
         <button
-          className="btn btn-outline-primary"
+          className="btn btn-outline-primary min-w-[100px]"
           onClick={prevStep}
           disabled={stepCount === 0 || qaData.length === 0}
         >
           Previous
         </button>
 
-        <div className="flex w-full gap-2">
+        <div className="flex w-full gap-1 sm:gap-2 my-2 sm:my-0">
           {qaData.map((_, index) => (
             <div
               key={index}
@@ -76,7 +76,7 @@ function ViewQA() {
         </div>
 
         <button
-          className="btn btn-outline-primary"
+          className="btn btn-outline-primary min-w-[100px]"
           onClick={nextStep}
           disabled={stepCount === qaData.length - 1 || qaData.length === 0}
         >

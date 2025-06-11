@@ -38,11 +38,11 @@ function DashboardHeader() {
         {/* Search bar */}
         <div className='hidden md:flex items-center flex-1 max-w-md relative'>
           <div className='relative w-full'>
-            <Search className='absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400' size={18} />
+            <Search className='absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 dark:text-gray-300' size={18} />
             <input 
               type="text" 
               placeholder='Search courses, topics...'
-              className='w-full pl-10 pr-4 py-2 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent'
+              className='w-full pl-10 pr-4 py-2 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent placeholder-gray-500 dark:placeholder-gray-300'
             />
           </div>
         </div>
@@ -87,11 +87,11 @@ function DashboardHeader() {
         >
           <div className='space-y-4'>
             <div className='relative'>
-              <Search className='absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400' size={18} />
+              <Search className='absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 dark:text-gray-300' size={18} />
               <input 
                 type="text" 
                 placeholder='Search courses, topics...'
-                className='w-full pl-10 pr-4 py-2 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent'
+                className='w-full pl-10 pr-4 py-2 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent placeholder-gray-500 dark:placeholder-gray-300'
               />
             </div>
             

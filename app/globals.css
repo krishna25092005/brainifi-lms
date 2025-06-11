@@ -114,3 +114,29 @@
   }
 }
 
+/* Mobile font fixes */
+@media (max-width: 640px) {
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+  
+  body {
+    font-size: 14px;
+    overflow-x: hidden;
+  }
+}
+
+/* Fix for iOS Safari bouncing effect */
+html, body {
+  position: relative;
+  width: 100%;
+  overflow-x: hidden;
+  overscroll-behavior-y: none;
+}
+
+/* Fix container overflow issues on mobile */
+* {
+  word-break: break-word;
+  box-sizing: border-box;
+}
+

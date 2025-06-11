@@ -99,12 +99,13 @@ function SideBar() {
 
       {/* User section at bottom */}
       <div className="pt-6 mt-auto border-t border-gray-100 dark:border-gray-800">
-        <Link href="/api/auth/signout">
-          <div className="flex items-center gap-3 p-3.5 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-xl cursor-pointer text-gray-700 dark:text-gray-200">
-            <LogOut size={20} />
-            <span className="font-medium">Log Out</span>
-          </div>
-        </Link>
+        <button
+          onClick={() => window.Clerk.signOut()}
+          className="flex items-center w-full gap-3 p-3.5 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-xl cursor-pointer text-gray-700 dark:text-gray-200"
+        >
+          <LogOut size={20} />
+          <span className="font-medium">Log Out</span>
+        </button>
       </div>
     </div>
   )
