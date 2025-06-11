@@ -106,6 +106,28 @@ npm run dev
 * **`GenerateStudyTypeContent`**:  Triggered by `/api/study-type-content`; generates content for specific study material types (flashcards, quizzes, Q&A) using the configured AI models.  Updates the status of the generated content in the database.
 
 
+## Environment Variables and Deployment
+
+For the application to function correctly, especially the course generation features, you must set these environment variables:
+
+| Variable | Description | Required |
+|----------|-------------|----------|
+| `NEXT_PUBLIC_INNGEST_EVENT_KEY` | API key for Inngest event handling | **Critical** for course generation |
+| `NEXT_PUBLIC_GEMINI_API_KEY` | Google Gemini API key | Required for AI features |
+| `DATABASE_URL` | PostgreSQL database connection URL | Required |
+
+### Important Note for Deployment
+
+When deploying to platforms like Vercel, make sure to:
+
+1. Add the `NEXT_PUBLIC_INNGEST_EVENT_KEY` environment variable
+2. You can obtain a free Inngest key by signing up at [https://www.inngest.com/](https://www.inngest.com/)
+3. Without this key, course generation will fail with the error "Failed to send event"
+
+### Local Development
+
+Create a `.env.local` file in the root directory with the necessary environment variables. Refer to `.env.example` for the required variables.
+
 ## Contributing
 
 Contributions are welcome!  Please follow these guidelines:
