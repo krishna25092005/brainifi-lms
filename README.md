@@ -149,4 +149,6 @@ Fork, branch, commit, push, and open a pull request 🚀
 
 ## 📜 License
 
-MIT License
+This project is licensed under the MIT License.
+
+[MIT](https://choosealicense.com/licenses/mit/)
