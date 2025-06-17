@@ -2,6 +2,19 @@
 
 BrainiFi LMS is a cutting-edge AI-powered Learning Management System designed to revolutionize personalized learning experiences. Built with **Next.js**, **Clerk**, **Inngest**, **Drizzle ORM**, and **Google Gemini AI**, it enables users to generate complete learning courses — including notes, flashcards, quizzes, and Q&A — in just seconds.
 
+> 🌐 **Live Site**: [https://brainifi-lms.vercel.app](https://brainifi-lms.vercel.app)
+
+---
+
+![BrainiFi LMS Preview](https://github.com/user-attachments/assets/bbd0fb0a-1180-48e8-b129-7c9f9530887b)
+
+---
+
+## 🎥 Demo Preview
+
+Watch the full app demonstration:  
+🔗 [View Demo on Google Drive (No Auto-play)](https://drive.google.com/file/d/1_Ip-qJy_XaO9L2P1b0mLDvtUxxIUvVYv/view)
+
 ---
 
 ## 🚀 Key Features
