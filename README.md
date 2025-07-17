@@ -134,7 +134,7 @@ npm run dev
 | NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY     | Clerk frontend key            |
 | CLERK_SECRET_KEY                      | Clerk backend key             |
 | NEXT_PUBLIC_GEMINI_API_KEY            | Google Gemini API key         |
-| NEXT_PUBLIC_DATABASE_CONNECTION_STRING| Neon DB URL                   |
+| DATABASE_URL                          | Neon DB URL                   |
 | NEXT_PUBLIC_INNGEST_EVENT_KEY         | Inngest function trigger key  |
 
 > 💡 All must be added on Vercel for production deployment.
@@ -164,4 +164,4 @@ Fork, branch, commit, push, and open a pull request 🚀
 
 This project is licensed under the MIT License.
 
-[MIT](https://choosealicense.com/licenses/mit/)
+[MIT](https://github.com/krishna25092005/brainifi-lms/blob/main/LICENSE)
